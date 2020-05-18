@@ -1,0 +1,33 @@
+{
+  "name": "cfl-backend",
+  "version": "1.0.0",
+  "description": "practice repo for CFL backend",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jscheuble/cfl-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jscheuble/cfl-backend/issues"
+  },
+  "homepage": "https://github.com/jscheuble/cfl-backend#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "helmet": "^3.22.0",
+    "knex": "^0.21.1",
+    "knex-cleaner": "^1.3.0",
+    "pg": "^8.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
