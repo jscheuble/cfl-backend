@@ -14,7 +14,7 @@ to set up postgreSQL database locally (for Mac, not sure if this works on window
 1. psql postgres
 2. CREATE DATABASE cfl OWNER '<your postgres username>';
     '\du' in postgres terminal will show you your users
-3. run migrations and seeds in a new command line 
+3. run migrations and seeds in a new terminal window
     knex migrate:latest
     knex seed:run
-4. 'psql cfl' in a new command window, will open up a postgres terminal where you can query the new database
+4. 'psql cfl' in a new terminal window, will open up a postgres terminal where you can query the new database
