@@ -16,64 +16,19 @@ exports.up = function (knex) {
                 .onDelete('CASCADE');
             tbl.unique(['zone_letter', 'community_id'])
         })
-        // .createTable('community_zone', tbl => {
-        //     tbl.integer('community_id')
-        //         .unsigned()
-        //         .notNullable()
-        //         .references('community.id')
-        //         .onUpdate('CASCADE')
-        //         .onDelete('CASCADE');
-        //     tbl.integer('zone_id')
-        //         .unsigned()
-        //         .notNullable()
-        //         .references('zone.id')
-        //         .onUpdate('CASCADE')
-        //         .onDelete('CASCADE');
-        //     tbl.unique(['community_id', 'zone_id']);
-        // })
+        .createTable('supervisor_role', tbl => {
+            tbl.increments();
+            tbl.string('supervisor_role', 50).notNullable().unique();
+        })
         .createTable('role', tbl => {
             tbl.increments();
             tbl.string('role', 50).notNullable().unique();
-            // link to surveys or a surveys_role table
+            tbl.integer('supervisor_role_id')
+                .unsigned()
+                .references('supervisor_role.id')
+                .onUpdate('CASCADE')
+                .onDelete('CASCADE');
         })
-        // .createTable('field_officer', tbl => {
-        //     tbl.increments();
-        //     tbl.string('first_name', 50).notNullable();
-        //     tbl.string('last_name', 50).notNullable();
-        //     tbl.string('username', 50).notNullable().unique();
-        //     tbl.string('password', 50).notNullable();
-        //     tbl.integer('zone_id')
-        //         .unsigned()
-        //         .notNullable()
-        //         .references('zone.id')
-        //         .onUpdate('CASCADE')
-        //         .onDelete('CASCADE');
-        //     tbl.integer('community_id')
-        //         .unsigned()
-        //         .notNullable()
-        //         .references('community.id')
-        //         .onUpdate('CASCADE')
-        //         .onDelete('CASCADE');
-        // })
-        // .createTable('supervisor', tbl => {
-        //     tbl.increments();
-        // tbl.string('first_name', 50).notNullable();
-        // tbl.string('last_name', 50).notNullable();
-        // tbl.string('username', 50).notNullable().unique();
-        // tbl.string('password', 50).notNullable();
-        // tbl.integer('zone_id')
-        //     .unsigned()
-        //     .notNullable()
-        //     .references('zone.id')
-        //     .onUpdate('CASCADE')
-        //     .onDelete('CASCADE');
-        // tbl.integer('community_id')
-        //     .unsigned()
-        //     .notNullable()
-        //     .references('community.id')
-        //     .onUpdate('CASCADE')
-        //     .onDelete('CASCADE');
-        // })
         .createTable('worker', tbl => {
             tbl.increments();
             tbl.string('first_name', 50).notNullable();
@@ -97,7 +52,7 @@ exports.up = function (knex) {
                 .references('community.id')
                 .onUpdate('CASCADE')
                 .onDelete('CASCADE');
-            // created at timestamp
+            // created at timestamp 2020-05-02T00:30:58.009Z
             tbl.timestamp("created at").defaultTo(knex.fn.now());
         })
         .createTable('family', tbl => {
@@ -115,13 +70,13 @@ exports.up = function (knex) {
                 .references('community.id')
                 .onUpdate('CASCADE')
                 .onDelete('CASCADE');
-            tbl.integer('field_officer_id')
-                .unsigned()
-                .notNullable()
-                .references('worker.id')
-                .onUpdate('CASCADE')
-                .onDelete('CASCADE');
-            // created at timestamp
+            // tbl.integer('field_officer_id')
+            //     .unsigned()
+            //     .notNullable()
+            //     .references('worker.id')
+            //     .onUpdate('CASCADE')
+            //     .onDelete('CASCADE');
+            // created at timestamp 
             tbl.timestamp("created at").defaultTo(knex.fn.now());
         })
         .createTable('individual', tbl => {
@@ -134,8 +89,7 @@ exports.up = function (knex) {
                 .references('family.id')
                 .onUpdate('CASCADE')
                 .onDelete('CASCADE');
-            // should this be notNullable 
-            tbl.date('date_of_birth');
+            tbl.date('date_of_birth').notNullable();
             tbl.string('gender').notNullable();
             tbl.boolean('hoh').notNullable();
             tbl.string('relation_to_hoh').notNullable();
@@ -147,7 +101,6 @@ exports.up = function (knex) {
             tbl.increments();
             tbl.string('survey_name', 100).notNullable();
         })
-        // ********
         .createTable('survey_role', tbl => {
             tbl.integer('survey_id')
                 .unsigned()
@@ -163,7 +116,6 @@ exports.up = function (knex) {
                 .onDelete('CASCADE');
             tbl.unique(['survey_id', 'role_id'])
         })
-        // ********
         .createTable('completed_survey', tbl => {
             tbl.increments();
             tbl.integer('survey_id')
@@ -232,11 +184,13 @@ exports.down = function (knex) {
         .dropTableIfExists('response')
         .dropTableIfExists('question')
         .dropTableIfExists('completed_survey')
+        .dropTableIfExists('survey_role')
         .dropTableIfExists('survey')
         .dropTableIfExists('individual')
         .dropTableIfExists('family')
         .dropTableIfExists('worker')
         .dropTableIfExists('role')
+        .dropTableIfExists('supervisor_role')
         .dropTableIfExists('zone')
         .dropTableIfExists('community')
 };
