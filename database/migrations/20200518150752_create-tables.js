@@ -8,7 +8,6 @@ exports.up = function (knex) {
         .createTable('zone', tbl => {
             tbl.increments();
             tbl.string('zone_letter', 2).notNullable();
-            // ****** or community id 
             tbl.integer('community_id')
                 .unsigned()
                 .notNullable()
@@ -35,6 +34,7 @@ exports.up = function (knex) {
         .createTable('role', tbl => {
             tbl.increments();
             tbl.string('role', 50).notNullable().unique();
+            // link to surveys or a surveys_role table
         })
         // .createTable('field_officer', tbl => {
         //     tbl.increments();
@@ -97,6 +97,8 @@ exports.up = function (knex) {
                 .references('community.id')
                 .onUpdate('CASCADE')
                 .onDelete('CASCADE');
+            // created at timestamp
+            tbl.timestamp("created at").defaultTo(knex.fn.now());
         })
         .createTable('family', tbl => {
             tbl.increments();
@@ -119,6 +121,8 @@ exports.up = function (knex) {
                 .references('worker.id')
                 .onUpdate('CASCADE')
                 .onDelete('CASCADE');
+            // created at timestamp
+            tbl.timestamp("created at").defaultTo(knex.fn.now());
         })
         .createTable('individual', tbl => {
             tbl.increments();
@@ -136,10 +140,28 @@ exports.up = function (knex) {
             tbl.boolean('hoh').notNullable();
             tbl.string('relation_to_hoh').notNullable();
             tbl.string('marital_status').notNullable();
+            // created at timestamp
+            tbl.timestamp("created at").defaultTo(knex.fn.now());
         })
         .createTable('survey', tbl => {
             tbl.increments();
             tbl.string('survey_name', 100).notNullable();
+        })
+        // ********
+        .createTable('survey_role', tbl => {
+            tbl.integer('survey_id')
+                .unsigned()
+                .notNullable()
+                .references('survey.id')
+                .onUpdate('CASCADE')
+                .onDelete('CASCADE');
+            tbl.integer('role_id')
+                .unsigned()
+                .notNullable()
+                .references('role.id')
+                .onUpdate('CASCADE')
+                .onDelete('CASCADE');
+            tbl.unique(['survey_id', 'role_id'])
         })
         // ********
         .createTable('completed_survey', tbl => {
@@ -167,6 +189,8 @@ exports.up = function (knex) {
                 .references('individual.id')
                 .onUpdate('CASCADE')
                 .onDelete('CASCADE');
+            // completed at timestamp
+            tbl.timestamp("completed at").defaultTo(knex.fn.now());
         })
         .createTable('question', tbl => {
             tbl.increments();
@@ -198,6 +222,8 @@ exports.up = function (knex) {
                 .references('individual.id')
                 .onUpdate('CASCADE')
                 .onDelete('CASCADE');
+
+
         })
 };
 
