@@ -11,12 +11,39 @@ exports.seed = function (knex) {
       community_id: 1
     },
     {
+      first_name: 'Jeff',
+      last_name: 'Doe',
+      username: 'jeffdoe1',
+      password: 'jeffdoe1',
+      role_name: 'supervisor_health',
+      zone_id: 2,
+      community_id: 1
+    },
+    {
+      first_name: 'Brookims',
+      last_name: 'Jarvis',
+      username: 'brookims23',
+      password: 'brookims23',
+      role_name: 'supervisor_health',
+      zone_id: 7,
+      community_id: 3
+    },
+    {
+      first_name: 'Hayden',
+      last_name: 'Black',
+      username: 'hayden0',
+      password: 'hayden',
+      role_name: 'supervisor_income_generation',
+      zone_id: 5,
+      community_id: 2
+    },
+    {
       first_name: 'John',
       last_name: 'Doe',
       username: 'johndoe',
       password: 'johndoe',
       role_name: 'promoter',
-      zone_id: 1,
+      zone_id: 2,
       community_id: 1
     },
     {

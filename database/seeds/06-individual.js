@@ -4,7 +4,7 @@ const genders = ['male', 'female', 'other']
 const relations = ['brother', 'sister', 'son', 'daughter', 'spouse', 'other']
 const marital = ['married', 'widowed', 'single', 'divorced', 'other']
 
-const createFakerAccount = () => ({
+const createFakeUsers = () => ({
   first_name: faker.name.firstName(),
   last_name: faker.name.lastName(),
   family_id: Math.floor(Math.random() * 12) + 1,
@@ -17,9 +17,9 @@ const createFakerAccount = () => ({
 
 exports.seed = function (knex) {
   const individuals = [];
-  const desiredEntries = 200;
+  const desiredEntries = 100;
   for (let i = 0; i < desiredEntries; i++) {
-    individuals.push(createFakerAccount());
+    individuals.push(createFakeUsers());
   }
   return knex('individual').insert(individuals);
 };

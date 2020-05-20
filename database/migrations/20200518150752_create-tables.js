@@ -42,7 +42,6 @@ exports.up = function (knex) {
                 .onDelete('CASCADE');
             tbl.integer('zone_id')
                 .unsigned()
-                .notNullable()
                 .references('zone.id')
                 .onUpdate('CASCADE')
                 .onDelete('CASCADE');
@@ -175,8 +174,6 @@ exports.up = function (knex) {
                 .references('individual.id')
                 .onUpdate('CASCADE')
                 .onDelete('CASCADE');
-
-
         })
 };
 
