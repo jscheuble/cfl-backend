@@ -21,5 +21,5 @@ exports.seed = function (knex) {
   for (let i = 0; i < desiredEntries; i++) {
     individuals.push(createFakerAccount());
   }
-  return knex('individual').insert(individuals)
+  return knex('individual').insert(individuals);
 };
