@@ -16,18 +16,18 @@ exports.up = function (knex) {
                 .onDelete('CASCADE');
             tbl.unique(['zone_letter', 'community_id'])
         })
-        .createTable('supervisor_role', tbl => {
-            tbl.increments();
-            tbl.string('supervisor_role', 50).notNullable().unique();
-        })
+        // .createTable('supervisor_role', tbl => {
+        //     tbl.increments();
+        //     tbl.string('supervisor_role', 50).notNullable().unique();
+        // })
         .createTable('role', tbl => {
             tbl.increments();
             tbl.string('role', 50).notNullable().unique();
-            tbl.integer('supervisor_role_id')
-                .unsigned()
-                .references('supervisor_role.id')
-                .onUpdate('CASCADE')
-                .onDelete('CASCADE');
+            // tbl.integer('supervisor_role_id')
+            //     .unsigned()
+            //     .references('supervisor_role.id')
+            //     .onUpdate('CASCADE')
+            //     .onDelete('CASCADE');
         })
         .createTable('worker', tbl => {
             tbl.increments();
